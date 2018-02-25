@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marvinformatics.hibernate.json.model;
+package com.marvinformatics.hibernate51.json.model;
 
 import static java.util.Arrays.asList;
 
@@ -47,7 +47,7 @@ public class Order {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Type(type = "com.marvinformatics.hibernate.json.JsonListUserType")
+    @Type(type = "com.marvinformatics.hibernate51.json.JsonListUserType")
     @Column(name = "labels")
     @Target(Label.class)
     private List<Label> labels = new ArrayList<Label>();

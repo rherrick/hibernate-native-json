@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marvinformatics.hibernate.json;
+package com.marvinformatics.hibernate51.json;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.marvinformatics.hibernate.json.JsonListUserType;
-import com.marvinformatics.hibernate.json.model.Label;
+import com.marvinformatics.hibernate51.json.JsonListUserType;
+import com.marvinformatics.hibernate51.json.model.Label;
 
 import java.util.ArrayList;
 import java.util.List;

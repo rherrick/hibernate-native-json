@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marvinformatics.hibernate.json.model;
+package com.marvinformatics.hibernate51.json.model;
 
 import com.querydsl.core.annotations.QueryEntity;
 

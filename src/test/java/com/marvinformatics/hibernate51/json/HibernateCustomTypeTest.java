@@ -13,26 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marvinformatics.hibernate.json;
+/*
+  Copyright (C) 2016 Marvin Herman Froeder (marvin@marvinformatics.com)
 
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasEntry;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.hasSize;
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+          http://www.apache.org/licenses/LICENSE-2.0
 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+package com.marvinformatics.hibernate51.json;
+
+import com.marvinformatics.hibernate51.json.model.Item;
+import com.marvinformatics.hibernate51.json.model.Label;
+import com.marvinformatics.hibernate51.json.model.Order;
+import com.marvinformatics.hibernate51.json.util.HibernateUtility;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -41,11 +42,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.marvinformatics.hibernate.json.model.Item;
-import com.marvinformatics.hibernate.json.model.Label;
-import com.marvinformatics.hibernate.json.model.Order;
-import com.marvinformatics.hibernate.json.util.HibernateUtility;
+import java.io.Serializable;
+import java.util.*;
+
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class HibernateCustomTypeTest {
 
@@ -60,7 +64,7 @@ public class HibernateCustomTypeTest {
     }
 
     @Before
-    public void createSession() throws Exception {
+    public void createSession() {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         item1 = session.save(new Item("test1", new Label("french label", "fr", 1)));
@@ -81,15 +85,15 @@ public class HibernateCustomTypeTest {
     public void shouldCreateLabel() {
         Item item = new Item().label(new Label("Message French", "fr", 4));
 
-        Item id = (Item) save(item);
+        Item id = save(item);
 
-        assertThat(id.getId(), greaterThan(0l));
+        assertThat(id.getId(), greaterThan(0L));
 
     }
 
     @Test
     public void shouldLoadLabel() {
-        Item item = (Item) load(Item.class, item1);
+        Item item = load(Item.class, item1);
 
         assertThat(item, hasProperty("label",
                 allOf(
@@ -99,12 +103,12 @@ public class HibernateCustomTypeTest {
 
     @Test
     public void shouldUpdateLabel() {
-        Item loaded = (Item) load(Item.class, item2);
+        Item loaded = load(Item.class, item2);
         loaded.getLabel().setLang("en").setValue("new text");
 
         save(loaded);
 
-        loaded = (Item) load(Item.class, item2);
+        loaded = load(Item.class, item2);
 
         assertThat(loaded, hasProperty("label",
                 allOf(
@@ -115,12 +119,12 @@ public class HibernateCustomTypeTest {
 
     @Test
     public void shouldDeleteLabel() {
-        Item item = (Item) load(Item.class, item2);
+        Item item = load(Item.class, item2);
         item.label(null);
 
         update(item);
 
-        Item loadedItem = (Item) load(Item.class, item2);
+        Item loadedItem = load(Item.class, item2);
 
         assertThat(loadedItem.getLabel(), nullValue());
 
@@ -128,7 +132,7 @@ public class HibernateCustomTypeTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void shouldCreateLabels() throws JsonProcessingException {
+    public void shouldCreateLabels() {
 
         Order order = new Order()
                 .description("customer order")
@@ -136,9 +140,9 @@ public class HibernateCustomTypeTest {
                 .addLabel(new Label("french value", "fr", 5))
                 .addLabel(new Label("english value", "en", 6));
 
-        Order saved = (Order) save(order);
+        Order saved = save(order);
 
-        Order loadedOrder = (Order) load(Order.class, saved.getId());
+        Order loadedOrder = load(Order.class, saved.getId());
 
         assertThat(loadedOrder.getLabels(), hasSize(2));
 
@@ -155,12 +159,12 @@ public class HibernateCustomTypeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void shouldUpdateLabels() {
-        Order loadedOrder = (Order) load(Order.class, order1);
+        Order loadedOrder = load(Order.class, order1);
         loadedOrder.getLabels().get(0).setValue("new value").setLang("zh");
 
         update(loadedOrder);
 
-        Order refreshOrder = (Order) load(Order.class, order1);
+        Order refreshOrder = load(Order.class, order1);
 
         assertThat(refreshOrder.getLabels(), containsInAnyOrder(
                 allOf(
@@ -174,12 +178,12 @@ public class HibernateCustomTypeTest {
 
     @Test
     public void shouldDeleteLabels() {
-        Order loadedOrder = (Order) load(Order.class, order1);
-        loadedOrder.labels(new ArrayList<Label>());
+        Order loadedOrder = load(Order.class, order1);
+        loadedOrder.labels(new ArrayList<>());
 
         update(loadedOrder);
 
-        Order refreshOrder = (Order) load(Order.class, order1);
+        Order refreshOrder = load(Order.class, order1);
 
         assertThat(refreshOrder.getLabels(), empty());
     }
@@ -187,7 +191,7 @@ public class HibernateCustomTypeTest {
     private <E> E load(Class<E> clazz, Serializable id) {
         Session session = sessionFactory.openSession();
         @SuppressWarnings("unchecked")
-        E entity = (E) session.get(clazz, id);
+        E entity = session.get(clazz, id);
         session.close();
 
         return entity;
@@ -229,7 +233,7 @@ public class HibernateCustomTypeTest {
 
     @Test
     public void map() {
-        Map<String, String> extra = new HashMap<String, String>();
+        Map<String, String> extra = new HashMap<>();
         extra.put("key", "value");
         extra.put("foo", "bar");
 

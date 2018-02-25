@@ -31,11 +31,11 @@ You can serialize either a class or a Map<String, Object> (in any cases a more d
 @Entity
 public class MyClass {
 
-	@Type(type = "com.marvinformatics.hibernate.json.JsonListUserType")
+	@Type(type = "com.marvinformatics.hibernate51.json.JsonListUserType")
 	@Target(Label.class)
 	private List<Label> labels = new ArrayList<Label>();
 
-	@Type(type = "com.marvinformatics.hibernate.json.JsonUserType")
+	@Type(type = "com.marvinformatics.hibernate51.json.JsonUserType")
 	private Map<String, String> extra;
 
 }
@@ -47,7 +47,7 @@ In order to be able to persist, query and generate DDL for this objects you need
 
 
 ```
-  <property name="hibernate.dialect">com.marvinformatics.hibernate.json.PostgreSQLJsonDialect</property>
+  <property name="hibernate.dialect">com.marvinformatics.hibernate51.json.PostgreSQLJsonDialect</property>
 ```
 
 
@@ -93,11 +93,11 @@ public class Item {
     @Column(name = "name")
     private String name;
 
-    @Type(type = "com.marvinformatics.hibernate.json.JsonUserType")
+    @Type(type = "com.marvinformatics.hibernate51.json.JsonUserType")
     @Column(name = "label")
     private Label label;
 
-    @Type(type = "com.marvinformatics.hibernate.json.JsonUserType")
+    @Type(type = "com.marvinformatics.hibernate51.json.JsonUserType")
     private Map<String, String> extra;
 ```
 

@@ -13,11 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marvinformatics.hibernate.json;
+/*
+  Copyright (C) 2016 Marvin Herman Froeder (marvin@marvinformatics.com)
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+package com.marvinformatics.hibernate51.json;
+
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.HibernateException;
@@ -27,10 +39,11 @@ import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.usertype.UserCollectionType;
 
-public class JsonSetUserType extends JsonUserType implements UserCollectionType {
-    public JsonSetUserType() {
-    }
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
+public class JsonSetUserType extends JsonUserType implements UserCollectionType {
     public JavaType createJavaType(ObjectMapper mapper) {
         return mapper.getTypeFactory().constructCollectionType(Set.class, this.returnedClass());
     }

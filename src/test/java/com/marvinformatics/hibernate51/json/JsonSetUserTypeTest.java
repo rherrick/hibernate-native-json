@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marvinformatics.hibernate.json;
+package com.marvinformatics.hibernate51.json;
 
 import java.util.HashSet;
 import java.util.Set;
-import com.marvinformatics.hibernate.json.model.Label;
+import com.marvinformatics.hibernate51.json.model.Label;
 import org.junit.Before;
 import org.junit.Test;
 

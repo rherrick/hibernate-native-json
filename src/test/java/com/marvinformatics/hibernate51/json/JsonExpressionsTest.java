@@ -13,9 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marvinformatics.hibernate.json;
+/*
+  Copyright (C) 2016 Marvin Herman Froeder (marvin@marvinformatics.com)
 
-import static com.marvinformatics.hibernate.json.model.QLabel.label;
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+package com.marvinformatics.hibernate51.json;
+
+import static com.marvinformatics.hibernate51.json.model.QLabel.label;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.hasEntry;
@@ -33,11 +48,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.marvinformatics.hibernate.json.model.Item;
-import com.marvinformatics.hibernate.json.model.Label;
-import com.marvinformatics.hibernate.json.model.Order;
-import com.marvinformatics.hibernate.json.model.QItem;
-import com.marvinformatics.hibernate.json.util.HibernateUtility;
+import com.marvinformatics.hibernate51.json.model.Item;
+import com.marvinformatics.hibernate51.json.model.Label;
+import com.marvinformatics.hibernate51.json.model.Order;
+import com.marvinformatics.hibernate51.json.model.QItem;
+import com.marvinformatics.hibernate51.json.util.HibernateUtility;
 import com.querydsl.jpa.hibernate.HibernateQuery;
 
 public class JsonExpressionsTest {
@@ -50,7 +65,7 @@ public class JsonExpressionsTest {
     }
 
     @Before
-    public void createSession() throws Exception {
+    public void createSession() {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.save(new Item("test1", new Label("french label", "fr", 1)));
@@ -70,7 +85,7 @@ public class JsonExpressionsTest {
     private <E> E load(Class<E> clazz, Serializable id) {
         Session session = sessionFactory.openSession();
         @SuppressWarnings("unchecked")
-        E entity = (E) session.get(clazz, id);
+        E entity = session.get(clazz, id);
         session.close();
 
         return entity;
@@ -110,7 +125,7 @@ public class JsonExpressionsTest {
 
     @Test
     public void map() {
-        Map<String, String> extra = new HashMap<String, String>();
+        Map<String, String> extra = new HashMap<>();
         extra.put("key", "value");
         extra.put("foo", "bar");
 

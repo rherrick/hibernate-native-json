@@ -8,7 +8,7 @@
 		<property name="connection.url">jdbc:postgresql:nativejson</property>
 		<property name="connection.username">postgres</property>
 		<property name="connection.password">nativejson</property>
-		<property name="hibernate.dialect">com.marvinformatics.hibernate.json.PostgreSQLJsonDialect</property>
+		<property name="hibernate.dialect">com.marvinformatics.hibernate51.json.PostgreSQLJsonDialect</property>
 
 		<!-- JDBC connection pool (use the built-in) -->
 		<property name="connection.pool_size">10</property>
@@ -26,7 +26,7 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">create-drop</property>
 
-		<mapping class="com.marvinformatics.hibernate.json.model.Order" />
-		<mapping class="com.marvinformatics.hibernate.json.model.Item" />
+		<mapping class="com.marvinformatics.hibernate51.json.model.Order" />
+		<mapping class="com.marvinformatics.hibernate51.json.model.Item" />
 	</session-factory>
 </hibernate-configuration>
