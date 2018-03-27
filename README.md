@@ -1,4 +1,4 @@
-hibernate-native-json
+hibernate4-native-json
 =================
 
 

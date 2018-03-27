@@ -20,10 +20,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.marvinformatics.hibernate</groupId>
-  <artifactId>hibernate-native-json</artifactId>
+  <artifactId>hibernate4-native-json</artifactId>
   <version>0.1-SNAPSHOT</version>
 
-  <name>hibernate-native-json</name>
+  <name>hibernate4-native-json</name>
   <description>Read/Write an object to JSON / JSON to object into a database table field (declared as a json column).</description>
 
   <properties>
@@ -489,7 +489,7 @@
           <plugin>
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>1.6.7</version>
+            <version>1.6.8</version>
             <extensions>true</extensions>
             <configuration>
               <serverId>ossrh</serverId>
